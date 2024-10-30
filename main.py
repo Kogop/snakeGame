@@ -5,11 +5,12 @@ import random
 # Game constants
 WIDTH, HEIGHT = 800, 600
 BLOCK_SIZE = 20
-SPEED = 10
+SPEED = 5
 FOOD_SPAWN_RATE = 100
 
 # Game variables
-snake = [(200, 200), (220, 200), (240, 200)]  # initial snake position # snake's head is last one, snake starts from end of tuple
+snake = [(200, 200), (220, 200),
+         (240, 200)]  # initial snake position # snake's head is last one, snake starts from end of tuple
 direction = 'RIGHT'  # initial direction
 food = (400, 300)  # initial food position
 score = 0
@@ -30,27 +31,27 @@ def draw_game():
 def move_snake():
     """Moves the snake based on the current direction"""
 
-    head = snake[-1]  #take last element(it's head)
+    head = snake[-1]  # take last element(it's head)
     if direction == 'UP':
-        new_head = (head[0], head[1] - BLOCK_SIZE) # (x,y-1) less on top so less y = going top
+        new_head = (head[0], head[1] - BLOCK_SIZE)  # (x,y-1) less on top so less y = going top
     elif direction == 'DOWN':
         new_head = (head[0], head[1] + BLOCK_SIZE)
     elif direction == 'LEFT':
         new_head = (head[0] - BLOCK_SIZE, head[1])
     elif direction == 'RIGHT':
         new_head = (head[0] + BLOCK_SIZE, head[1])
-    #first new head is added
+    # first new head is added
     snake.append(new_head)
     global food
-    #then if new_head did touch the food
+    # then if new_head did touch the food
     if snake[-1] == food:
         global score
-        score += 1 #score gets up
-        #and new food randomly spawns
+        score += 1  # score gets up
+        # and new food randomly spawns
         food = (random.randint(0, WIDTH - BLOCK_SIZE) // BLOCK_SIZE * BLOCK_SIZE,
                 random.randint(0, HEIGHT - BLOCK_SIZE) // BLOCK_SIZE * BLOCK_SIZE)
     else:
-        snake.pop(0) #if new head didn't touch the food then snakes tail gets cut off
+        snake.pop(0)  # if new head didn't touch the food then snakes tail gets cut off
 
 
 def check_collision():
